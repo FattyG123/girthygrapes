@@ -42,6 +42,8 @@
   position: relative;
   text-align: center;
   color: white;
+  font-size: "26px";
+  font-family: "Times New Roman", Times, serif;
 }
 
 .centered {
