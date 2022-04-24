@@ -57,10 +57,13 @@
 
 
 
-.bigdaddy {
-    background-color: lightgrey;
-    width: 300px;
-    border: 15px solid green;
-    padding: 50px;
-    margin: 20px;
+
+  .block {
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    background-color: lightgray;
+  }
+  .bigdaddy  {
+    text-align: center;
   }
