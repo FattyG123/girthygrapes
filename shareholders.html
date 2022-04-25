@@ -6,6 +6,21 @@
         <link rel="icon" href="grapeees.jpg">
         <link rel="stylesheet" href="styles.css">
     </head>
+    <style>
+        .container {
+          height: 200px;
+          position: relative;
+          border: 3px solid green;
+        }
+        
+        .vertical-center {
+          margin: 0;
+          position: absolute;
+          top: 50%;
+          -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+        }
+        </style>
 
     <body style="background-color:#333;">
         <div class="topnav">
@@ -38,9 +53,14 @@
     <br>
     <p class="font_7" style="line-height:1.7em; text-align:center; font-size:26px; color:white">Want to buy shares in our company? Click Below:</p>
     <br>
-    <audio id="sound" src="music/never.mp3" preload="auto"></audio>
-    <button onclick="document.getElementById('sound').play();">
-        Buy Shares</button>
+    <div class="container">
+        <div class="vertical-center">
+            <audio id="sound" src="music/never.mp3" preload="auto"></audio>
+            <button onclick="document.getElementById('sound').play();">
+                Buy Shares</button>
+        </div>
+      </div>
+   
     </body>
     <footer>
         <p>© 2022 Matty G  Email: girthygrapesltd@gmail.com</p>
