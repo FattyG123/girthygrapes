@@ -75,6 +75,8 @@
 
   .product-container{
     padding: 0 10vw;
+    display: flex;
+    overflow-x: auto;
 }
 
 
