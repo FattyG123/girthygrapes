@@ -77,12 +77,8 @@
     padding: 0 10vw;
     display: flex;
     overflow-x: auto;
-    scroll-behavior: smooth;
 }
 
-.product-container::-webkit-scrollbar{
-    display: none;
-}
 
 .product-card{
     flex: 0 0 auto;
