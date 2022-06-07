@@ -22,8 +22,13 @@
   
     <h1 class="font_7" style="line-height:1.7em; text-align:center; font-size:26px; color:white">Come here for Help</h1>
     <p class="font_7" style="line-height:1.7em; text-align:center; font-size:26px; color:white">Press button below for sick browsing tunes</p>
-
-    <div id="chromeaudio"><button onclick="MIDIjs.play('thebeatles.mid');">play audio</button></div>
+    <div class="container">
+        <div class="vertical-center">
+            <audio id="sound" src="thebeatles.mid" preload="auto"></audio>
+            <button onclick="document.getElementById('sound').play();">
+                Buy Shares</button>
+        </div>
+      </div>
 <script>MIDIjs.play('thebeatles.mid');</script>
 
     </body>
