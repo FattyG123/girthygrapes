@@ -5,6 +5,7 @@
         <link rel="icon" href="brain.png">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
         <link rel="stylesheet" href="styles.css">
+        <script type="text/javascript" src="//www.midijs.net/lib/midi.js"></script>
     </head>
     <body style="background-color:#333;">
         <div class="topnav">
@@ -20,10 +21,10 @@
         </div>
   
     <h1 class="font_7" style="line-height:1.7em; text-align:center; font-size:26px; color:white">Come here for Help</h1>
-    <p class="font_7" style="line-height:1.7em; text-align:center; font-size:26px; color:white">Press button below for happiness</p>
+    <p class="font_7" style="line-height:1.7em; text-align:center; font-size:26px; color:white">Press button below for sick browsing tunes</p>
 
-
-<script>MIDIjs.play('THE BEATLES.Help K.mid');</script>
+    <div id="chromeaudio"><button onclick="MIDIjs.play('thebeatles.mid');">play audio</button></div>
+<script>MIDIjs.play('thebeatles.mid');</script>
 
 /body>
 <footer>
