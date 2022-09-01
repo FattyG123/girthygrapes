@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Contact Us</title>
+        <link rel="icon" href="grapeees.jpg">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <script>
+        // DOM Elements
+const allCells = document.querySelectorAll('.cell:not(.row-top)');
+const topCells = document.querySelectorAll('.cell.row-top');
+const resetButton = document.querySelector('.reset');
+const statusSpan = document.querySelector('.status');
+
+// columns
+const column0 = [allCells[35], allCells[28], allCells[21], allCells[14], allCells[7], allCells[0], topCells[0]];
+const column1 = [allCells[36], allCells[29], allCells[22], allCells[15], allCells[8], allCells[1], topCells[1]];
+const column2 = [allCells[37], allCells[30], allCells[23], allCells[16], allCells[9], allCells[2], topCells[2]];
+const column3 = [allCells[38], allCells[31], allCells[24], allCells[17], allCells[10], allCells[3], topCells[3]];
+const column4 = [allCells[39], allCells[32], allCells[25], allCells[18], allCells[11], allCells[4], topCells[4]];
+const column5 = [allCells[40], allCells[33], allCells[26], allCells[19], allCells[12], allCells[5], topCells[5]];
+const column6 = [allCells[41], allCells[34], allCells[27], allCells[20], allCells[13], allCells[6], topCells[6]];
+const columns = [column0, column1, column2, column3, column4, column5, column6];
+
+
+// rows
+const topRow = [topCells[0], topCells[1], topCells[2], topCells[3], topCells[4], topCells[5], topCells[6]];
+const row0 = [allCells[0], allCells[1], allCells[2], allCells[3], allCells[4], allCells[5], allCells[6]];
+const row1 = [allCells[7], allCells[8], allCells[9], allCells[10], allCells[11], allCells[12], allCells[13]];
+const row2 = [allCells[14], allCells[15], allCells[16], allCells[17], allCells[18], allCells[19], allCells[20]];
+const row3 = [allCells[21], allCells[22], allCells[23], allCells[24], allCells[25], allCells[26], allCells[27]];
+const row4 = [allCells[28], allCells[29], allCells[30], allCells[31], allCells[32], allCells[33], allCells[34]];
+const row5 = [allCells[35], allCells[36], allCells[37], allCells[38], allCells[39], allCells[40], allCells[41]];
+const rows = [row0, row1, row2, row3, row4, row5, topRow];
+
+
+// variables
+let gameIsLive = true;
+let yellowIsNext = true;
+
+
+// Functions
+const getClassListArray = (cell) => {
+  const classList = cell.classList;
+  return [...classList];
+};
+
+const getCellLocation = (cell) => {
+  const classList = getClassListArray(cell);
+
+  const rowClass = classList.find(className => className.includes('row'));
+  const colClass = classList.find(className => className.includes('col'));
+  const rowIndex = rowClass[4];
+  const colIndex = colClass[4];
+  const rowNumber = parseInt(rowIndex, 10);
+  const colNumber = parseInt(colIndex, 10);
+
+  return [rowNumber, colNumber];
+};
+
+const getFirstOpenCellForColumn = (colIndex) => {
+  const column = columns[colIndex];
+  const columnWithoutTop = column.slice(0, 6);
+
+  for (const cell of columnWithoutTop) {
+    const classList = getClassListArray(cell);
+    if (!classList.includes('yellow') && !classList.includes('red')) {
+      return cell;
+    }
+  }
+
+  return null;
+};
+
+const clearColorFromTop = (colIndex) => {
+  const topCell = topCells[colIndex];
+  topCell.classList.remove('yellow');
+  topCell.classList.remove('red');
+};
+
+const getColorOfCell = (cell) => {
+  const classList = getClassListArray(cell);
+  if (classList.includes('yellow')) return 'yellow';
+  if (classList.includes('red')) return 'red';
+  return null;
+};
+
+const checkWinningCells = (cells) => {
+  if (cells.length < 4) return false;
+
+  gameIsLive = false;
+  for (const cell of cells) {
+    cell.classList.add('win');
+  }
+  statusSpan.textContent = `${yellowIsNext ? 'Green Grapes' : 'Red Grapes'} won!`
+  return true;
+};
+
+const checkStatusOfGame = (cell) => {
+  const color = getColorOfCell(cell);
+  if (!color) return;
+  const [rowIndex, colIndex] = getCellLocation(cell);
+
+  // Check horizontally
+  let winningCells = [cell];
+  let rowToCheck = rowIndex;
+  let colToCheck = colIndex - 1;
+  while (colToCheck >= 0) {
+    const cellToCheck = rows[rowToCheck][colToCheck];
+    if (getColorOfCell(cellToCheck) === color) {
+      winningCells.push(cellToCheck);
+      colToCheck--;
+    } else {
+      break;
+    }
+  }
+  colToCheck = colIndex + 1;
+  while (colToCheck <= 6) {
+    const cellToCheck = rows[rowToCheck][colToCheck];
+    if (getColorOfCell(cellToCheck) === color) {
+      winningCells.push(cellToCheck);
+      colToCheck++;
+    } else {
+      break;
+    }
+  }
+  let isWinningCombo = checkWinningCells(winningCells);
+  if (isWinningCombo) return;
+
+
+  // Check vertically
+  winningCells = [cell];
+  rowToCheck = rowIndex - 1;
+  colToCheck = colIndex;
+  while (rowToCheck >= 0) {
+    const cellToCheck = rows[rowToCheck][colToCheck];
+    if (getColorOfCell(cellToCheck) === color) {
+      winningCells.push(cellToCheck);
+      rowToCheck--;
+    } else {
+      break;
+    }
+  }
+  rowToCheck = rowIndex + 1;
+  while (rowToCheck <= 5) {
+    const cellToCheck = rows[rowToCheck][colToCheck];
+    if (getColorOfCell(cellToCheck) === color) {
+      winningCells.push(cellToCheck);
+      rowToCheck++;
+    } else {
+      break;
+    }
+  }
+  isWinningCombo = checkWinningCells(winningCells);
+  if (isWinningCombo) return;
+
+
+  // Check diagonally /
+  winningCells = [cell];
+  rowToCheck = rowIndex + 1;
+  colToCheck = colIndex - 1;
+  while (colToCheck >= 0 && rowToCheck <= 5) {
+    const cellToCheck = rows[rowToCheck][colToCheck];
+    if (getColorOfCell(cellToCheck) === color) {
+      winningCells.push(cellToCheck);
+      rowToCheck++;
+      colToCheck--;
+    } else {
+      break;
+    }
+  }
+  rowToCheck = rowIndex - 1;
+  colToCheck = colIndex + 1;
+  while (colToCheck <= 6 && rowToCheck >= 0) {
+    const cellToCheck = rows[rowToCheck][colToCheck];
+    if (getColorOfCell(cellToCheck) === color) {
+      winningCells.push(cellToCheck);
+      rowToCheck--;
+      colToCheck++;
+    } else {
+      break;
+    }
+  }
+  isWinningCombo = checkWinningCells(winningCells);
+  if (isWinningCombo) return;
+
+
+  // Check diagonally \
+  winningCells = [cell];
+  rowToCheck = rowIndex - 1;
+  colToCheck = colIndex - 1;
+  while (colToCheck >= 0 && rowToCheck >= 0) {
+    const cellToCheck = rows[rowToCheck][colToCheck];
+    if (getColorOfCell(cellToCheck) === color) {
+      winningCells.push(cellToCheck);
+      rowToCheck--;
+      colToCheck--;
+    } else {
+      break;
+    }
+  }
+  rowToCheck = rowIndex + 1;
+  colToCheck = colIndex + 1;
+  while (colToCheck <= 6 && rowToCheck <= 5) {
+    const cellToCheck = rows[rowToCheck][colToCheck];
+    if (getColorOfCell(cellToCheck) === color) {
+      winningCells.push(cellToCheck);
+      rowToCheck++;
+      colToCheck++;
+    } else {
+      break;
+    }
+  }
+  isWinningCombo = checkWinningCells(winningCells);
+  if (isWinningCombo) return;
+
+  // Check to see if we have a tie
+  const rowsWithoutTop = rows.slice(0, 6);
+  for (const row of rowsWithoutTop) {
+    for (const cell of row) {
+      const classList = getClassListArray(cell);
+      if (!classList.includes('yellow') && !classList.includes('red')) {
+        return;
+      }
+    }
+  }
+
+  gameIsLive = false;
+  statusSpan.textContent = "Game is a tie!";
+};
+
+
+
+// Event Handlers
+const handleCellMouseOver = (e) => {
+  if (!gameIsLive) return;
+  const cell = e.target;
+  const [rowIndex, colIndex] = getCellLocation(cell);
+
+  const topCell = topCells[colIndex];
+  topCell.classList.add(yellowIsNext ? 'yellow' : 'red');
+};
+
+const handleCellMouseOut = (e) => {
+  const cell = e.target;
+  const [rowIndex, colIndex] = getCellLocation(cell);
+  clearColorFromTop(colIndex);
+};
+
+const handleCellClick = (e) => {
+  if (!gameIsLive) return;
+  const cell = e.target;
+  const [rowIndex, colIndex] = getCellLocation(cell);
+
+  const openCell = getFirstOpenCellForColumn(colIndex);
+
+  if (!openCell) return;
+
+  openCell.classList.add(yellowIsNext ? 'yellow' : 'red');
+  checkStatusOfGame(openCell);
+
+  yellowIsNext = !yellowIsNext;
+  clearColorFromTop(colIndex);
+  if (gameIsLive) {
+    const topCell = topCells[colIndex];
+    topCell.classList.add(yellowIsNext ? 'yellow' : 'red');
+  }
+};
+
+
+
+
+// Adding Event Listeners
+for (const row of rows) {
+  for (const cell of row) {
+    cell.addEventListener('mouseover', handleCellMouseOver);
+    cell.addEventListener('mouseout', handleCellMouseOut);
+    cell.addEventListener('click', handleCellClick);
+  }
+}
+
+resetButton.addEventListener('click', () => {
+  for (const row of rows) {
+    for (const cell of row) {
+      cell.classList.remove('red');
+      cell.classList.remove('yellow');
+      cell.classList.remove('win');
+    }
+  }
+  gameIsLive = true;
+  yellowIsNext = true;
+  statusSpan.textContent = '';
+});
+
+    </script>
+    <style>
+        * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  align-items: center;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+  padding: 25px;
+  width: 100%;
+}
+
+
+h1 {
+  text-transform: uppercase;
+}
+
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  height: 700px;
+  margin: 10px 0 25px;
+  width: 700px;
+}
+
+.cell {
+  align-items: center;
+  background: #4370F1;
+  display: flex;
+  height: 100px;
+  justify-content: center;
+  width: 100px;
+}
+
+.cell::after {
+   background: white;
+   border-radius: 50%;
+   border: 3px solid black;
+   content: '';
+   cursor: pointer;
+   height: 75px;
+   width: 75px;
+ }
+
+.cell:not(.row-top).red::after {
+  background: #5D1451;
+}
+.cell:not(.row-top).yellow::after {
+  background: #dbe465;
+}
+
+.cell:not(.row-top).red.win {
+  background: #5D1451;
+}
+
+.cell:not(.row-top).yellow.win {
+  background: #dbe465;
+}
+
+.cell.row-top {
+  background: white;
+}
+
+.cell.row-top::after {
+  border: none;
+}
+
+.cell.row-top.red::after {
+  background: #5D1451;
+  border: 3px solid black;
+}
+
+.cell.row-top.yellow::after {
+  background: #dbe465;
+  border: 3px solid black;
+}
+
+.footer {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: 700px;
+}
+
+.reset {
+  background-color: #4370F1;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 15px 30px;
+  text-transform: uppercase;
+}
+
+.reset:hover {
+  background-color: #1D50F1;
+}
+
+.reset:active {
+  background-color: #4d7ef1;
+
+}
+
+.status {
+  display: block;
+  font-size: 20px;
+}
+
+/* Util CSS */
+.left-border {
+  border-left: 3px solid black;
+}
+
+.top-border {
+  border-top: 3px solid black;
+}
+
+.right-border {
+  border-right: 3px solid black;
+}
+
+.bottom-border {
+  border-bottom: 3px solid black;
+}
+
+.left-border.top-border {
+  border-radius: 10px 0 0 0;
+}
+
+.right-border.top-border {
+  border-radius: 0 10px 0 0;
+}
+
+.right-border.bottom-border {
+  border-radius: 0 0 10px 0;
+}
+
+.left-border.bottom-border {
+  border-radius: 0 0 0 10px;
+}
+body {
+  background-image: url("https://images.squarespace-cdn.com/content/v1/549a15d6e4b0b2582e0d26fd/1515800062393-7TFNOZMR96Y40LNPLMDG/Grape+Vines.jpg?format=1000w");
+
+  height: 100%;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+    </style>
+    <body style="background-color:#333;" >
+        <div class="topnav">
+            <img src="grapes.png" width="240" height="55"> 
+            <a href="/">Home</a>
+            <a href="/about">Who are we? </a>
+            <a href="/shareholders">Our Shareholders</a>
+            <a href="/news">News</a>
+            <a href="/product">Our Product</a>
+            <a href="/shop">Online Shop</a>
+            <a href="/contact">Contact Us </a>
+            <a href="/gethelp">Get Help</a>
+            <a href="/game">*NEW* CONNECT 4 *NEW*</a>
+        </div>
+  
+        <div class="game-board">
+            <div class="cell row-top col-0"></div>
+            <div class="cell row-top col-1"></div>
+            <div class="cell row-top col-2"></div>
+            <div class="cell row-top col-3"></div>
+            <div class="cell row-top col-4"></div>
+            <div class="cell row-top col-5"></div>
+            <div class="cell row-top col-6"></div>
+            <div class="cell row-0 col-0 left-border top-border"></div>
+            <div class="cell row-0 col-1 top-border"></div>
+            <div class="cell row-0 col-2 top-border"></div>
+            <div class="cell row-0 col-3 top-border"></div>
+            <div class="cell row-0 col-4 top-border"></div>
+            <div class="cell row-0 col-5 top-border"></div>
+            <div class="cell row-0 col-6 top-border right-border"></div>
+            <div class="cell row-1 col-0 left-border"></div>
+            <div class="cell row-1 col-1"></div>
+            <div class="cell row-1 col-2"></div>
+            <div class="cell row-1 col-3"></div>
+            <div class="cell row-1 col-4"></div>
+            <div class="cell row-1 col-5"></div>
+            <div class="cell row-1 col-6 right-border"></div>
+            <div class="cell row-2 col-0 left-border"></div>
+            <div class="cell row-2 col-1"></div>
+            <div class="cell row-2 col-2"></div>
+            <div class="cell row-2 col-3"></div>
+            <div class="cell row-2 col-4"></div>
+            <div class="cell row-2 col-5"></div>
+            <div class="cell row-2 col-6 right-border"></div>
+            <div class="cell row-3 col-0 left-border"></div>
+            <div class="cell row-3 col-1"></div>
+            <div class="cell row-3 col-2"></div>
+            <div class="cell row-3 col-3"></div>
+            <div class="cell row-3 col-4"></div>
+            <div class="cell row-3 col-5"></div>
+            <div class="cell row-3 col-6 right-border"></div>
+            <div class="cell row-4 col-0 left-border"></div>
+            <div class="cell row-4 col-1"></div>
+            <div class="cell row-4 col-2"></div>
+            <div class="cell row-4 col-3"></div>
+            <div class="cell row-4 col-4"></div>
+            <div class="cell row-4 col-5"></div>
+            <div class="cell row-4 col-6 right-border"></div>
+            <div class="cell row-5 col-0 bottom-border left-border"></div>
+            <div class="cell row-5 col-1 bottom-border"></div>
+            <div class="cell row-5 col-2 bottom-border"></div>
+            <div class="cell row-5 col-3 bottom-border"></div>
+            <div class="cell row-5 col-4 bottom-border"></div>
+            <div class="cell row-5 col-5 bottom-border"></div>
+            <div class="cell row-5 col-6 bottom-border right-border"></div>
+          </div>
+          <div class="footer">
+            <button class="reset">Reset</button>
+            <span class="status"></span>
+          </div>
+
+
+    <footer>
+        <p>© 2022 Matty G  Email: girthygrapesltd@gmail.com</p>
+    </footer>
+</html>
