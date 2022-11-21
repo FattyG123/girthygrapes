@@ -1,94 +1,71 @@
-<!doctype html>
-<html lang="en">
+<html>
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="style.css">
   <title>Connect Four Grapes</title>
+  <link rel="icon" href="https://www.essingtonfarm.co.uk/wp-content/uploads/2020/11/red-grapes.png">
+  <style>
+    body {
+      background: #202028;
+      color: #fff;
+      text-align: center;
+    }
+      #main{
+        display: none;
+      }
+    #oneplayer,
+    #twoplayer {
+      text-align: center;
+      vertical-align: middle;
+      border: 2px solid black;
+      border-radius: 7px;
+
+      background-image: linear-gradient(to right,
+          green 0%,
+          green 50%,
+          red 50%,
+          red 100%);
+      color: White;
+      font-size: 32px;
+      font-weight: bold;
+      font-family: "Courier New";
+      width: 7em;
+      margin: 5px auto;
+
+    }
+
+    #theTitle {
+      margin: auto;
+      color: white;
+      font-size: 2em;
+      font-family: 'Times New Roman';
+    }
+  </style>
 </head>
-<style>
-body {
-  background-image: url("https://images.squarespace-cdn.com/content/v1/549a15d6e4b0b2582e0d26fd/1515800062393-7TFNOZMR96Y40LNPLMDG/Grape+Vines.jpg?format=1000w");
 
-  height: 100%;
+<body>
 
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+  <body>
+    <div id="theTitle">Welcome to Connect Four Grapes!</div>
+    <div id="oneplayer" onclick="oneplayerMode()" onmouseover="this.style.backgroundColor = 'gray'">One Player Mode
+    </div>
+    <div id="twoplayer" onclick="game1.html" onmouseover="this.style.backgroundColor = 'gray'">Two Player Mode
+    </div>
+      <div id="main"><canvas></canvas></div>
+    <script src="script.js"></script>
+    <script>
+      var twoplayerMode = function(){
+        document.getElementById("oneplayer").style.display = "none";
+        document.getElementById("twoplayer").style.display = "none";
+        document.getElementById("theTitle").style.display = "none";
+        document.getElementById("main").style.display = "block";
+      };
+      var oneplayerMode = function(){
+        document.getElementById("oneplayer").style.display = "none";
+        document.getElementById("twoplayer").style.display = "none";
+        document.getElementById("theTitle").style.display = "none";
+        document.getElementById("main").style.display = "block";
+      };
+    </script>
+  </body>
 
-
-</style>
-<div class="topnav">
-    <img src="grapes.png" width="240" height="55"> 
-    <a href="/">Home</a>
-    <a href="/about">Who are we? </a>
-    <a href="/shareholders">Our Shareholders</a>
-    <a href="/news">News</a>
-    <a href="/product">Our Product</a>
-    <a href="/shop">Online Shop</a>
-    <a href="/contact">Contact Us </a>
-    <a href="/gethelp">Get Help</a>
-    <a href="/game">*NEW* CONNECT 4 *NEW*</a>
-</div>
-  <h1>Connect Four Grapes</h1>
-<div class="game-board">
-  <div class="cell row-top col-0"></div>
-  <div class="cell row-top col-1"></div>
-  <div class="cell row-top col-2"></div>
-  <div class="cell row-top col-3"></div>
-  <div class="cell row-top col-4"></div>
-  <div class="cell row-top col-5"></div>
-  <div class="cell row-top col-6"></div>
-  <div class="cell row-0 col-0 left-border top-border"></div>
-  <div class="cell row-0 col-1 top-border"></div>
-  <div class="cell row-0 col-2 top-border"></div>
-  <div class="cell row-0 col-3 top-border"></div>
-  <div class="cell row-0 col-4 top-border"></div>
-  <div class="cell row-0 col-5 top-border"></div>
-  <div class="cell row-0 col-6 top-border right-border"></div>
-  <div class="cell row-1 col-0 left-border"></div>
-  <div class="cell row-1 col-1"></div>
-  <div class="cell row-1 col-2"></div>
-  <div class="cell row-1 col-3"></div>
-  <div class="cell row-1 col-4"></div>
-  <div class="cell row-1 col-5"></div>
-  <div class="cell row-1 col-6 right-border"></div>
-  <div class="cell row-2 col-0 left-border"></div>
-  <div class="cell row-2 col-1"></div>
-  <div class="cell row-2 col-2"></div>
-  <div class="cell row-2 col-3"></div>
-  <div class="cell row-2 col-4"></div>
-  <div class="cell row-2 col-5"></div>
-  <div class="cell row-2 col-6 right-border"></div>
-  <div class="cell row-3 col-0 left-border"></div>
-  <div class="cell row-3 col-1"></div>
-  <div class="cell row-3 col-2"></div>
-  <div class="cell row-3 col-3"></div>
-  <div class="cell row-3 col-4"></div>
-  <div class="cell row-3 col-5"></div>
-  <div class="cell row-3 col-6 right-border"></div>
-  <div class="cell row-4 col-0 left-border"></div>
-  <div class="cell row-4 col-1"></div>
-  <div class="cell row-4 col-2"></div>
-  <div class="cell row-4 col-3"></div>
-  <div class="cell row-4 col-4"></div>
-  <div class="cell row-4 col-5"></div>
-  <div class="cell row-4 col-6 right-border"></div>
-  <div class="cell row-5 col-0 bottom-border left-border"></div>
-  <div class="cell row-5 col-1 bottom-border"></div>
-  <div class="cell row-5 col-2 bottom-border"></div>
-  <div class="cell row-5 col-3 bottom-border"></div>
-  <div class="cell row-5 col-4 bottom-border"></div>
-  <div class="cell row-5 col-5 bottom-border"></div>
-  <div class="cell row-5 col-6 bottom-border right-border"></div>
-</div>
-<div class="footer">
-  <button class="reset">Reset</button>
-  <span class="status"></span>
-</div>
-<script src="script.js"></script>
-</body>
 </html>
