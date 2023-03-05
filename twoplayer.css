@@ -1,0 +1,113 @@
+body {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
+    padding: 25px;
+    width: 100%;
+  }
+  h1 {
+    text-transform: uppercase;
+  }
+  #status {
+    text-transform: uppercase;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
+    padding: 25px;
+    width: 100%;
+    font-size: 30px;
+  
+  }
+  .game-board {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+    height: 700px;
+    margin: 10px 0 25px;
+    width: 700px;
+  }
+  .gamecell {
+    align-items: center;
+    background:  #0000000;
+    display: flex;
+    height: 100px;
+    justify-content: center;
+    width: 100px;
+  }
+  .gamecell::after {
+     background: #00000000;
+     border-radius: 50%;
+     border: 5px solid green;
+     content: '';
+     cursor: pointer;
+     height: 75px;
+     width: 75px;
+   }
+  .gamecell:not(.columnselector).red::after {
+    background: #5D1451;
+  }
+  .gamecell:not(.columnselector).green::after {
+    background: #dbe465;
+  }
+  .gamecell:not(.columnselector).red.win {
+    background: #5D1451;
+  }
+  .gamecell:not(.columnselector).green.win {
+    background: #dbe465;
+  }
+  .gamecell.columnselector {
+    background:  #ffffff00;
+  }
+  .gamecell.columnselector::after {
+    border: none;
+  }
+  .gamecell.columnselector.red::after {
+    background: #5D1451;
+    border: 3px solid black;
+  }
+  .gamecell.columnselector.green::after {
+    background: #dbe465;
+    border: 3px solid black;
+  }
+  
+  .restartbutton {
+    background-color: black;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 15px 30px;
+    text-transform: uppercase;
+  }
+  
+  .left {
+    border-left: 5px solid green;
+  }
+  
+  .top {
+    border-top: 5px solid green;
+  }
+  
+  .right {
+    border-right: 5px solid green;
+  }
+  
+  .bottom {
+    border-bottom: 5px solid green;
+  }
+  
+  #menubutton {
+    background-color: black;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 15px 30px;
+    text-transform: uppercase;
+  }
