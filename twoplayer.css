@@ -30,10 +30,10 @@ body {
   }
   .gamecell {
     align-items: center;
-    background:  #0000000;
-    display: flex;
-    height: 100px;
-    justify-content: center;
+    background:#0000000;
+    display:flex;
+    height:100px;
+    justify-content:center;
     width: 100px;
   }
   .gamecell::after {
