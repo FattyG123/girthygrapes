@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        .topnav {
+            background-color: #90EE90;
+            overflow: hidden;
+            color: black;
+          }
+          
+          .topnav a, .topnav p {
+            display: inline;
+            float: left;
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            margin-bottom: 0px !important;
+          }
+          .topnav img{
+            display: inline;
+            float: left;
+            padding: 7px 5px;
+          }
+          .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+          }
+          
+          .topnav a.active {
+            background-color: #04AA6D;
+            color: white;
+          }
+        
+          footer {
+            position: fixed;
+            padding: 10px 10px 0px 10px;
+            bottom: 0;
+            width: 100%;
+            height: 40px;
+            background-color: #90EE90;
+            color: black;
+        }
+        
+        .container {
+          position: relative;
+          text-align: center;
+          color: white;
+          font-size: large;
+          font-family: "Times New Roman", Times, serif;
+        }
+        
+        .centered {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: large;
+        }
+        
+        .center {
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          border-radius: 50%;
+        }
+        </style>
+    <head>
+        <title>Love</title>
+        <link rel="icon" href="brain.png">
+        <link rel="stylesheet" href="Therapy/styles.css">
+        <script type="text/javascript" src="//www.midijs.net/lib/midi.js"></script>
+    </head>
+    <body style="background-color:#fc8eac;">
+        <div class="topnav">
+            <a href="https://mattyg.skin/gethelp.html">Home</a>
+            <a href="lonely.html">Matty G's Dating Advice</a>
+            <a href="sad.html">Matty G's Crying Advice</a>
+            <a href="vibe.html">Matty G's Vibing Advice</a>
+            <a href="other.html">Matty G's Other Advice</a>
+            <a href="session.html">Matty G's Therapy Sessions</a>
+        </div>
+        <script>MIDIjs.play('drum_patterns.mp3');</script>
+    <div class="container">
+        <div class="vertical-center">
+            <audio id="sound" src="drum_patterns.mp3" preload="auto"></audio>
+            <button onclick="document.getElementById('sound').play();">
+               Optional tunes</button>
+        </div>
+      </div>
+      <p class="font_7" style="line-height:1.7em; text-align:center; font-size:26px; color:white">BOOK YOUR THERAPY SESSIONS WITH ME FOR 20 PENCE USING THE BUTTON BELOW</p>
+      <img src="20pence.jpg" style="width:100%;">
+      <div class="vertical-center">
+        <audio id="sound" src="ha-gay.mp3" preload="auto"></audio>
+        <button onclick="document.getElementById('sound').play();">
+           Get a session</button>
+    </div>
+     <br>
+      <div class="container">
+        <div class="vertical-center">
+          
+        </div>
+      </div>
+    </body>
+<footer>
+    <p>© 2022 Matty G  Email: girthygrapesltd@gmail.com</p>
+</footer>
+</html>
